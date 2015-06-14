@@ -31,7 +31,9 @@ object PaymentManager extends Build {
         "io.spray" %% "spray-can" % "1.3.3" % "compile",
         "io.spray" %% "spray-routing" % "1.3.3" % "compile",
         "io.spray" %% "spray-testkit" % "1.3.3" % "compile",
-        "io.spray"%%"spray-json"%"1.3.2" % "compile"
+        "io.spray"%%"spray-json"%"1.3.2" % "compile",
+        "joda-time" % "joda-time" % "2.6" % "compile",
+        "org.joda" % "joda-convert" % "1.7" % "compile"
       )
     ) ++ Revolver.settings
   )

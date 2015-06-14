@@ -1,3 +1,5 @@
 package com.payit.manager.models
 
-case class FundingAccount()
+import com.payit.manager.FundingMethod.FundingMethod
+
+case class FundingAccount(fundingMethod: FundingMethod, journalEntries: Seq[JournalEntry])

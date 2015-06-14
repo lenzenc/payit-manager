@@ -1,3 +1,3 @@
 package com.payit.manager.models
 
-case class FundingJournal()
+case class Country(code: String)
