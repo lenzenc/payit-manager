@@ -1,11 +1,17 @@
 package com.payit.manager
 
 import akka.actor.ActorSystem
+import com.payit.components.core.Configuration
+import com.payit.components.mongodb.migrations.{ResetApplyMigrations, MongoMigrator}
 import spray.routing.SimpleRoutingApp
 
 object Server extends App with SimpleRoutingApp {
 
   println("Running PayIT Manager...")
+
+  val config = Configuration.load
+  val migrator = new MongoMigrator("default", config)
+  migrator.migrate(ResetApplyMigrations, "com.payit.profile.data.migrations")
 
   implicit val system = ActorSystem("payit-manager")
 
