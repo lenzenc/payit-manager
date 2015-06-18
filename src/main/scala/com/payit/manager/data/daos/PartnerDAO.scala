@@ -16,4 +16,11 @@ class PartnerDAO(implicit val db: MongoDB) extends MongoDAO[Partner] {
     partner
   }
 
+  def findAll(): Seq[Partner] = collection.find().toSeq.map(PartnerMapper.fromDBObject(_))
+
+  def findById(id: String): Option[Partner] = collection.findOne(MongoDBObject(PartnerMapper.Id -> new ObjectId(id))) match {
+    case Some(rec) => Some(PartnerMapper.fromDBObject(rec))
+    case None => None
+  }
+
 }

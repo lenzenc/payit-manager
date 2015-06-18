@@ -1,25 +1,38 @@
 package com.payit.manager
 
 import akka.actor.ActorSystem
+import com.mongodb.casbah.Imports._
 import com.payit.components.core.Configuration
 import com.payit.components.mongodb.migrations.{ResetApplyMigrations, MongoMigrator}
+import com.payit.manager.data.daos.PartnerDAO
+import com.payit.manager.services.GetPartnerDetailsService
 import spray.routing.SimpleRoutingApp
 
-object Server extends App with SimpleRoutingApp {
+object Server extends App with SimpleRoutingApp with JsonImplicits {
 
   println("Running PayIT Manager...")
 
   val config = Configuration.load
   val migrator = new MongoMigrator("default", config)
   migrator.migrate(ResetApplyMigrations, "com.payit.manager.data.migrations")
+  val client: MongoClient = MongoClient(
+    config.getString("mongo.default.host").getOrElse("localhost"),
+    config.getInt("mongo.default.port").getOrElse(27017))
+  implicit val db: MongoDB = client(config.getString("mongo.default.dbname").get)
+  val getPartnerDetailsService = new GetPartnerDetailsService(new PartnerDAO())
 
   implicit val system = ActorSystem("payit-manager")
 
   startServer(interface = "localhost", port = 9000) {
-    path("") {
-      get {
+    get {
+      path("partners") {
         complete {
-          <h1>Welcome to PayIT Manager</h1>
+          getPartnerDetailsService.list()
+        }
+      } ~
+      path("partners" / Segment  ) { id =>
+        complete {
+          getPartnerDetailsService.get(id)
         }
       }
     }
