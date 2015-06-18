@@ -1,3 +1,6 @@
 package com.payit.manager.models
 
-case class Country(code: String)
+object Country extends Enumeration {
+  type Country = Value
+  val USA, GBR, DUE, CAN, FRA = Value
+}

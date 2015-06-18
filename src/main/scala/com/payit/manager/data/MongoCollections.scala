@@ -1,4 +1,4 @@
-package com.payit.manager.db
+package com.payit.manager.data
 
 object MongoCollections extends Enumeration {
   type MongoCollections = Value

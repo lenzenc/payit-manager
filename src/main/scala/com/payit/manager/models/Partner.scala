@@ -1,3 +1,6 @@
 package com.payit.manager.models
 
-case class Partner(name: String, externalRef: String, supportedFunding: Seq[PartnerFunding])
+import com.payit.components.mongodb.models.MongoModel
+import com.mongodb.casbah.Imports.ObjectId
+
+case class Partner(name: String, externalRef: String, id: ObjectId = new ObjectId) extends MongoModel[Partner]

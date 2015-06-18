@@ -1,3 +1,6 @@
 package com.payit.manager.models
 
-case class Currency(code: String)
+object Currency extends Enumeration {
+  type Currency = Value
+  val USD, CAN, EUR, GBP = Value
+}

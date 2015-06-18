@@ -11,7 +11,7 @@ object Server extends App with SimpleRoutingApp {
 
   val config = Configuration.load
   val migrator = new MongoMigrator("default", config)
-  migrator.migrate(ResetApplyMigrations, "com.payit.profile.data.migrations")
+  migrator.migrate(ResetApplyMigrations, "com.payit.manager.data.migrations")
 
   implicit val system = ActorSystem("payit-manager")
 

@@ -29,25 +29,25 @@ class MongoMigrator(mongoConfig: String, config: Configuration) {
     val db = client(dbName)
     client.setWriteConcern(WriteConcern.Safe)
 
-    val migrations: immutable.SortedMap[Int, Class[_ <: MongoMigration]] = findMigrations(basePackage)
-    val versions: Vector[Int] = migrations.keySet.toVector
+    val migrations: immutable.SortedMap[Long, Class[_ <: MongoMigration]] = findMigrations(basePackage)
+    val versions: Vector[Long] = migrations.keySet.toVector
     val versionCollection = db(migrationCollectionName)
     var appliedVersions = getAppliedVersions(versionCollection)
 
-    case class ApplyAndRemove(applyVersions: Vector[Int], removeVersions: Vector[Int])
+    case class ApplyAndRemove(applyVersions: Vector[Long], removeVersions: Vector[Long])
 
     val applyRemove = command match {
-      case ApplyMigrations => ApplyAndRemove(versions, Vector.empty[Int])
+      case ApplyMigrations => ApplyAndRemove(versions, Vector.empty[Long])
       case ResetApplyMigrations =>
         client.dropDatabase(dbName)
         versionCollection.createIndex(
           MongoDBObject("version" -> 1),
           MongoDBObject("unique" -> true, "name" -> "UNIQ_VERSION_IDX"))
-        appliedVersions = Vector.empty[Int]
-        ApplyAndRemove(versions, Vector.empty[Int])
+        appliedVersions = Vector.empty[Long]
+        ApplyAndRemove(versions, Vector.empty[Long])
       case RollbackMigration(count) =>
         ApplyAndRemove(
-          Vector.empty[Int],
+          Vector.empty[Long],
           appliedVersions.reverse.take(if (count > appliedVersions.length) appliedVersions.length else count))
     }
 
@@ -70,17 +70,17 @@ class MongoMigrator(mongoConfig: String, config: Configuration) {
 
   }
 
-  private def getAppliedVersions(versionCollection: MongoCollection): Vector[Int] = {
+  private def getAppliedVersions(versionCollection: MongoCollection): Vector[Long] = {
     versionCollection.find(
       MongoDBObject(),
       MongoDBObject("version" -> 1, "_id" -> 0)).
-      sort(MongoDBObject("version" -> 1)).flatMap(_.getAs[Int]("version")).toVector
+      sort(MongoDBObject("version" -> 1)).flatMap(_.getAs[Long]("version")).toVector
   }
 
   private def runMigration(
     migrationClass: Class[_ <: MongoMigration],
     direction: MigrationDirection,
-    version: Int,
+    version: Long,
     versionCollection: MongoCollection,
     db: MongoDB) =
   {
@@ -98,9 +98,9 @@ class MongoMigrator(mongoConfig: String, config: Configuration) {
 
   }
 
-  private def findMigrations(packageName: String): immutable.SortedMap[Int, Class[_ <: MongoMigration]] = {
+  private def findMigrations(packageName: String): immutable.SortedMap[Long, Class[_ <: MongoMigration]] = {
 
-    var results = new TreeMap[Int, Class[_ <: MongoMigration]]
+    var results = new TreeMap[Long, Class[_ <: MongoMigration]]
     val path = packageName.replace('.','/')
     val urls = this.getClass.getClassLoader.getResources(path)
     val classNames = new mutable.HashSet[String]
@@ -108,7 +108,7 @@ class MongoMigrator(mongoConfig: String, config: Configuration) {
       classNames ++= classNamesInResources(urls.nextElement(), packageName)
     }
 
-    var seenVersions = new immutable.TreeMap[Int, String]
+    var seenVersions = new immutable.TreeMap[Long, String]
     val seenDescriptions = new mutable.HashMap[String, String]
     val reStr = """Migrate_(\d+)_([_a-zA-Z0-9]*)"""
     val re = java.util.regex.Pattern.compile(reStr)
@@ -119,7 +119,7 @@ class MongoMigrator(mongoConfig: String, config: Configuration) {
       val matcher = re.matcher(baseName)
       if (matcher.matches) {
         val versionStr = matcher.group(1)
-        val versionOpt = try Some(versionStr.toInt) catch { case e: NumberFormatException =>
+        val versionOpt = try Some(versionStr.toLong) catch { case e: NumberFormatException =>
           println(s"Skipping Migration because the version of define class: $name is not a valid number")
           None
         }
