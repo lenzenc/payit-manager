@@ -6,10 +6,6 @@ import com.mongodb.casbah.Imports._
 
 object PartnerMapper extends ModelMapper[Partner] {
 
-  val Id = "_id"
-  val Name = "name"
-  val ExternalRef = "externalRef"
-
   def asDBObject(partner: Partner): DBObject = {
     MongoDBObject(
       Id -> partner.id,

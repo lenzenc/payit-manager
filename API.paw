@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>82DD1119-6D02-4AC3-8395-3805664F864E</UUID>
-        <nextObjectID>110</nextObjectID>
+        <nextObjectID>112</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -140,5 +140,31 @@
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z109"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z111">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">0</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z112"></relationship>
+    </object>
+    <object type="LMREQUEST" id="z112">
+        <attribute name="body" type="string">[{"data":{"json":"{\\"name\\":\\"My USD Account\\",\\"fundingMethod\\":\\"DEBIT\\",\\"currency\\":\\"USD\\",\\"country\\":\\"USA\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="uuid" type="string">674548F4-3279-409C-982E-376F9FA6D999</attribute>
+        <attribute name="url" type="string">http://localhost:9000/fundingaccounts</attribute>
+        <attribute name="storecookies" type="bool">1</attribute>
+        <attribute name="sendcookies" type="bool">1</attribute>
+        <attribute name="redirectmethod" type="bool">0</attribute>
+        <attribute name="redirectauthorization" type="bool">0</attribute>
+        <attribute name="method" type="string">POST</attribute>
+        <attribute name="followredirects" type="bool">0</attribute>
+        <attribute name="order" type="int64">2</attribute>
+        <attribute name="name" type="string">Add Funding Account</attribute>
+        <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z111"></relationship>
     </object>
 </database>

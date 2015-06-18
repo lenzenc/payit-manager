@@ -4,8 +4,9 @@ import akka.actor.ActorSystem
 import com.mongodb.casbah.Imports._
 import com.payit.components.core.Configuration
 import com.payit.components.mongodb.migrations.{ResetApplyMigrations, MongoMigrator}
-import com.payit.manager.data.daos.PartnerDAO
-import com.payit.manager.services.GetPartnerDetailsService
+import com.payit.manager.data.daos.{FundingAccountDAO, PartnerDAO}
+import com.payit.manager.services.dtos.NewFundingAccount
+import com.payit.manager.services.{AddFundingAccountService, GetPartnerDetailsService}
 import spray.routing.SimpleRoutingApp
 
 object Server extends App with SimpleRoutingApp with JsonImplicits {
@@ -20,6 +21,7 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
     config.getInt("mongo.default.port").getOrElse(27017))
   implicit val db: MongoDB = client(config.getString("mongo.default.dbname").get)
   val getPartnerDetailsService = new GetPartnerDetailsService(new PartnerDAO())
+  val addFundingAccountService = new AddFundingAccountService(new FundingAccountDAO())
 
   implicit val system = ActorSystem("payit-manager")
 
@@ -33,6 +35,17 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
       path("partners" / Segment  ) { id =>
         complete {
           getPartnerDetailsService.get(id)
+        }
+      }
+    }
+    post {
+      path("fundingaccounts") {
+        decompressRequest() {
+          entity(as[NewFundingAccount]) { account =>
+            complete {
+              addFundingAccountService.add(account)
+            }
+          }
         }
       }
     }

@@ -5,6 +5,10 @@ import com.payit.components.mongodb.models.MongoModel
 
 trait ModelMapper[M <: MongoModel[M]] {
 
+  val Id = "_id"
+  val Name = "name"
+  val ExternalRef = "externalRef"
+
   com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers()
 
   def asDBObject(model: M): DBObject
