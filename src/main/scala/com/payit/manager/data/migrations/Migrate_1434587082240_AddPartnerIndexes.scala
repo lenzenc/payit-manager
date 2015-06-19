@@ -8,21 +8,15 @@ import com.payit.manager.models.Partner
 class Migrate_1434587082240_AddPartnerIndexes extends MongoMigration {
 
   def up(db: MongoDB) = {
-
-    db(MongoCollections.Partners.toString).createIndex(
-      MongoDBObject(Partner.Name -> 1),
-      MongoDBObject("unique" -> true, "name" -> "UNIQ_NAME_IDX")
-    )
-    db(MongoCollections.Partners.toString).createIndex(
-      MongoDBObject(Partner.ExternalRef -> 1),
-      MongoDBObject("unique" -> true, "name" -> "UNIQ_EXTERNAL_REF_IDX")
-    )
-
+    val collection = db(MongoCollections.Partners.toString)
+    addUniqueIndex(collection, Partner.Name, "UNIQ_NAME_IDX")
+    addUniqueIndex(collection, Partner.ExternalRef, "UNIQ_EXTERNAL_REF_IDX")
   }
 
   def down(db: MongoDB) = {
-    db(MongoCollections.Partners.toString).dropIndex("UNIQ_NAME_IDX")
-    db(MongoCollections.Partners.toString).dropIndex("UNIQ_EXTERNAL_REF_IDX")
+    val collection = db(MongoCollections.Partners.toString)
+    dropIndex(collection, "UNIQ_NAME_IDX")
+    dropIndex(collection, "UNIQ_EXTERNAL_REF_IDX")
   }
 
 }
