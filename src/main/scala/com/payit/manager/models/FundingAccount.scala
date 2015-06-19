@@ -9,11 +9,11 @@ import com.mongodb.casbah.Imports._
 
 case class FundingAccount(
                            name: String,
-                           externalRef: String,
                            fundingMethod: FundingMethod,
                            currency: Currency,
                            country: Country,
                            journalEntries: Seq[JournalEntry] = Seq(),
+                           externalRef: ObjectId = new ObjectId,
                            id: ObjectId = new ObjectId)
 extends MongoModel[FundingAccount]
 
@@ -37,7 +37,7 @@ object FundingAccount extends MongoObjectMapper[FundingAccount] {
   def fromDBObject(dbo: DBObject): FundingAccount = {
     FundingAccount(
       name = dbo.as[String](Name),
-      externalRef = dbo.as[String](ExternalRef),
+      externalRef = dbo.as[ObjectId](ExternalRef),
       fundingMethod = dbo.as[FundingMethod](FundingMethod),
       currency = dbo.as[Currency](Currency),
       country = dbo.as[Country](Country),

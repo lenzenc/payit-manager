@@ -10,12 +10,11 @@ class AddFundingAccountService(fundingAccountDAO: FundingAccountDAO) {
   def add(newFundingAccount: NewFundingAccount): AddedFundingAccount = {
     val fundingAccount = fundingAccountDAO.insert(FundingAccount(
       newFundingAccount.name,
-      new ObjectId().toString,
       newFundingAccount.fundingMethod,
       newFundingAccount.currency,
       newFundingAccount.country
     ))
-    AddedFundingAccount(fundingAccount.externalRef, fundingAccount.name
+    AddedFundingAccount(fundingAccount.externalRef.toString, fundingAccount.name
     )
   }
 
