@@ -3,18 +3,18 @@ package com.payit.manager.data.migrations
 import com.mongodb.casbah.Imports._
 import com.payit.components.mongodb.migrations.MongoMigration
 import com.payit.manager.data.MongoCollections
-import com.payit.manager.data.mappers.PartnerMapper
+import com.payit.manager.models.Partner
 
 class Migrate_1434587082240_AddPartnerIndexes extends MongoMigration {
 
   def up(db: MongoDB) = {
 
     db(MongoCollections.Partners.toString).createIndex(
-      MongoDBObject(PartnerMapper.Name -> 1),
+      MongoDBObject(Partner.Name -> 1),
       MongoDBObject("unique" -> true, "name" -> "UNIQ_NAME_IDX")
     )
     db(MongoCollections.Partners.toString).createIndex(
-      MongoDBObject(PartnerMapper.ExternalRef -> 1),
+      MongoDBObject(Partner.ExternalRef -> 1),
       MongoDBObject("unique" -> true, "name" -> "UNIQ_EXTERNAL_REF_IDX")
     )
 

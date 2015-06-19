@@ -37,7 +37,7 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
           getPartnerDetailsService.get(id)
         }
       }
-    }
+    } ~
     post {
       path("fundingaccounts") {
         decompressRequest() {

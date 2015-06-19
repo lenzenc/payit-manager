@@ -5,13 +5,13 @@ import com.mongodb.casbah.MongoDB
 import com.mongodb.casbah.commons.MongoDBObject
 import com.payit.components.mongodb.migrations.MongoMigration
 import com.payit.manager.data.MongoCollections
-import com.payit.manager.data.mappers.FundingAccountMapper
+import com.payit.manager.models.FundingAccount
 
 class Migrate_1434656231562_AddFundingAccountIndexes extends MongoMigration {
 
   def up(db: MongoDB) = {
     db(MongoCollections.FundingAccounts.toString).createIndex(
-      MongoDBObject(FundingAccountMapper.ExternalRef -> 1),
+      MongoDBObject(FundingAccount.ExternalRef -> 1),
       MongoDBObject("unique" -> true, "name" -> "UNIQ_EXTERNAL_REF_IDX")
     )
   }

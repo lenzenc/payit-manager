@@ -4,7 +4,6 @@ import com.mongodb.casbah.Imports._
 import com.payit.components.mongodb.migrations.MongoMigration
 import com.payit.manager.data.MongoCollections
 import com.payit.manager.data.daos.PartnerDAO
-import com.payit.manager.data.mappers.PartnerMapper
 import com.payit.manager.models.Partner
 
 class Migrate_1434591387634_AddInitialPartners extends MongoMigration {
@@ -22,8 +21,8 @@ class Migrate_1434591387634_AddInitialPartners extends MongoMigration {
   }
 
   def down(db: MongoDB) = {
-    db(MongoCollections.Partners.toString).remove(MongoDBObject(PartnerMapper.Id -> partnerA.id))
-    db(MongoCollections.Partners.toString).remove(MongoDBObject(PartnerMapper.Id -> partnerB.id))
+    db(MongoCollections.Partners.toString).remove(MongoDBObject(Partner.Id -> partnerA.id))
+    db(MongoCollections.Partners.toString).remove(MongoDBObject(Partner.Id -> partnerB.id))
   }
 
 }
