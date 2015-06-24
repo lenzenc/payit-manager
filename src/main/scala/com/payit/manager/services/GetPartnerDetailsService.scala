@@ -6,11 +6,11 @@ import com.payit.manager.services.dtos.PartnerDetail
 class GetPartnerDetailsService(partnerDAO: PartnerDAO) {
 
   def list(): Seq[PartnerDetail] = partnerDAO.findAll().map { partner =>
-    new PartnerDetail(partner.name, partner.externalRef)
+    new PartnerDetail(partner.name, partner.externalRef.toString)
   }
 
   def get(id: String): Option[PartnerDetail] = partnerDAO.findById(id).map { partner =>
-    new PartnerDetail(partner.name, partner.externalRef)
+    new PartnerDetail(partner.name, partner.externalRef.toString)
   }
 
 }
