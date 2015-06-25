@@ -4,8 +4,9 @@ import com.mongodb.casbah.Imports._
 import com.payit.components.mongodb.models.MongoModel
 
 case class Payment(
-                    amount: BigDecimal,
-                    fundingAccountId: ObjectId,
+                    fundingAccount: FundingAccount,
+                    beneficiaryAccount: BankAccount,
                     externalRef: ObjectId = new ObjectId,
+                    amount: BigDecimal,
                     id: ObjectId = new ObjectId)
 extends MongoModel[Payment]

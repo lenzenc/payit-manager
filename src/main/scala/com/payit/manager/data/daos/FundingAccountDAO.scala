@@ -13,6 +13,11 @@ class FundingAccountDAO(implicit val db: MongoDB) extends DAO[FundingAccount] {
 
   import FundingAccountMapper._
 
+  def findById(id: String): Option[FundingAccount] = collection.findOne(MongoDBObject(Id -> new ObjectId(id))) match {
+    case Some(rec) => Some(mapper.fromDBObject(rec))
+    case None => None
+  }
+
   def insert(fundingAccount: FundingAccount): FundingAccount = {
     collection.insert(mapper.asDBObject(fundingAccount), WriteConcern.Acknowledged)
     fundingAccount
