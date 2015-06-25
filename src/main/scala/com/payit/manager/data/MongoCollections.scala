@@ -5,4 +5,5 @@ object MongoCollections extends Enumeration {
   val Partners = Value("partners")
   val FundingAccounts = Value("funding_accounts")
   val Payments = Value("payments")
+  val BankAccounts = Value("bank_accounts")
 }

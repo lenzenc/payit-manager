@@ -20,8 +20,6 @@ extends MongoModel[FundingAccount]
 object FundingAccount extends MongoObjectMapper[FundingAccount] {
 
   val FundingMethod = "fundingMethod"
-  val Currency = "currency"
-  val Country = "country"
 
   def asDBObject(fundingAccount: FundingAccount): DBObject = {
     MongoDBObject(

@@ -8,6 +8,8 @@ trait MongoObjectMapper[M] {
   val Id = "_id"
   val Name = "name"
   val ExternalRef = "externalRef"
+  val Currency = "currency"
+  val Country = "country"
 
   com.mongodb.casbah.commons.conversions.scala.RegisterJodaTimeConversionHelpers()
 
