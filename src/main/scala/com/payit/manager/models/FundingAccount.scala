@@ -1,6 +1,5 @@
 package com.payit.manager.models
 
-import com.payit.components.mongodb.dao.MongoObjectMapper
 import com.payit.components.mongodb.models.MongoModel
 import com.payit.manager.FundingMethod.FundingMethod
 import com.payit.manager.models.Country.Country
@@ -16,32 +15,3 @@ case class FundingAccount(
                            externalRef: ObjectId = new ObjectId,
                            id: ObjectId = new ObjectId)
 extends MongoModel[FundingAccount]
-
-object FundingAccount extends MongoObjectMapper[FundingAccount] {
-
-  val FundingMethod = "fundingMethod"
-
-  def asDBObject(fundingAccount: FundingAccount): DBObject = {
-    MongoDBObject(
-      Id -> fundingAccount.id,
-      Name -> fundingAccount.name,
-      ExternalRef -> fundingAccount.externalRef,
-      FundingMethod -> fundingAccount.fundingMethod.toString,
-      Currency -> fundingAccount.currency.toString,
-      Country -> fundingAccount.country.toString
-    )
-  }
-
-  def fromDBObject(dbo: DBObject): FundingAccount = {
-    FundingAccount(
-      name = dbo.as[String](Name),
-      externalRef = dbo.as[ObjectId](ExternalRef),
-      fundingMethod = dbo.as[FundingMethod](FundingMethod),
-      currency = dbo.as[Currency](Currency),
-      country = dbo.as[Country](Country),
-      journalEntries = Seq(),
-      id = dbo.as[ObjectId](Id)
-    )
-  }
-
-}
