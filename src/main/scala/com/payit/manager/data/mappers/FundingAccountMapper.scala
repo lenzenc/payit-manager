@@ -8,7 +8,6 @@ import com.payit.manager.models.Country.Country
 import com.payit.manager.models.Currency.Currency
 
 import com.payit.manager.models.FundingAccount
-import org.joda.time.DateTime
 
 class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
 
@@ -17,10 +16,7 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
   def asDBObject(fundingAccount: FundingAccount): DBObject = {
     MongoDBObject(
       Id -> fundingAccount.id,
-      Timestamps -> MongoDBObject(
-        CreatedAt -> fundingAccount.timestamps.createdAt,
-        UpdatedAt -> fundingAccount.timestamps.updatedAt
-      ),
+      Timestamps -> timestamps(fundingAccount),
       Name -> fundingAccount.name,
       ExternalRef -> fundingAccount.externalRef,
       FundingMethod -> fundingAccount.fundingMethod.toString,
@@ -37,10 +33,7 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
       currency = dbo.as[Currency](Currency),
       country = dbo.as[Country](Country),
       journalEntries = Seq(),
-      timestamps = com.payit.components.core.models.Timestamps(
-        createdAt = dbo.as[DBObject](Timestamps).as[DateTime](CreatedAt),
-        updatedAt = dbo.as[DBObject](Timestamps).as[DateTime](UpdatedAt)
-      ),
+      timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
   }

@@ -7,8 +7,5 @@ trait CommonFields {
   val ExternalRef = "externalRef"
   val Currency = "currency"
   val Country = "country"
-  val CreatedAt = "createdAt"
-  val UpdatedAt = "updatedAt"
-  val Timestamps = "timestamps"
 
 }

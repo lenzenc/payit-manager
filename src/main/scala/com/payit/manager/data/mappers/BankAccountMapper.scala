@@ -7,7 +7,6 @@ import com.payit.components.mongodb.dao.MongoObjectMapper
 import com.payit.manager.models.BankAccount
 import com.payit.manager.models.Country.Country
 import com.payit.manager.models.Currency.Currency
-import org.joda.time.DateTime
 
 class BankAccountMapper extends MongoObjectMapper[BankAccount] {
 
@@ -20,10 +19,7 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
   def asDBObject(bankAccount: BankAccount): DBObject = {
     MongoDBObject(
       Id -> bankAccount.id,
-      Timestamps -> MongoDBObject(
-        CreatedAt -> bankAccount.timestamps.createdAt,
-        UpdatedAt -> bankAccount.timestamps.updatedAt
-      ),
+      Timestamps -> timestamps(bankAccount),
       ExternalRef -> bankAccount.externalRef,
       Name -> bankAccount.name,
       Country -> bankAccount.country,
@@ -43,10 +39,7 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       accountNumber = dbo.as[String](AccountNumber),
       routingNumber = dbo.as[String](RoutingNumber),
       externalRef = dbo.as[ObjectId](ExternalRef),
-      timestamps = com.payit.components.core.models.Timestamps(
-        createdAt = dbo.as[DBObject](Timestamps).as[DateTime](CreatedAt),
-        updatedAt = dbo.as[DBObject](Timestamps).as[DateTime](UpdatedAt)
-      ),
+      timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
   }

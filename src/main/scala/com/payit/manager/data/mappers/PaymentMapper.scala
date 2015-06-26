@@ -6,7 +6,6 @@ import com.mongodb.casbah.commons.MongoDBObject
 import com.payit.components.mongodb.dao.MongoObjectMapper
 import com.payit.manager.data.daos.{BankAccountDAO, FundingAccountDAO}
 import com.payit.manager.models.Payment
-import org.joda.time.DateTime
 
 class PaymentMapper(
                      fundingAccountDAO: FundingAccountDAO,
@@ -19,10 +18,7 @@ class PaymentMapper(
   def asDBObject(payment: Payment): DBObject = {
     MongoDBObject(
       Id -> payment.id,
-      Timestamps -> MongoDBObject(
-        CreatedAt -> payment.timestamps.createdAt,
-        UpdatedAt -> payment.timestamps.updatedAt
-      ),
+      Timestamps -> timestamps(payment),
       ExternalRef -> payment.externalRef,
       Amount -> payment.amount,
       FundingAccountId -> payment.fundingAccount.id,
@@ -36,10 +32,7 @@ class PaymentMapper(
       externalRef = dbo.as[ObjectId](ExternalRef),
       fundingAccount = fundingAccountDAO.findById(dbo.as[ObjectId](FundingAccountId).toString).get,
       beneficiaryAccount = bankAccountDAO.findById(dbo.as[ObjectId](BeneficiaryAccountId).toString).get,
-      timestamps = com.payit.components.core.models.Timestamps(
-        createdAt = dbo.as[DBObject](Timestamps).as[DateTime](CreatedAt),
-        updatedAt = dbo.as[DBObject](Timestamps).as[DateTime](UpdatedAt)
-      ),
+      timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
   }
