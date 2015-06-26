@@ -1,13 +1,7 @@
 package com.payit.manager.models
 
-import com.payit.manager.models.EntryType.EntryType
+import com.payit.manager.models.JournalEntry.EntryType.EntryType
 import org.joda.time.DateTime
-
-object EntryType extends Enumeration {
-  type EntryType = Value
-  val Debit = Value("DEBIT")
-  val Credit = Value("CREDIT")
-}
 
 case class JournalEntry(
   entryDate: DateTime,
@@ -15,3 +9,13 @@ case class JournalEntry(
   entryType: EntryType,
   amount: BigDecimal,
   endingBalance: BigDecimal)
+
+object JournalEntry {
+
+  object EntryType extends Enumeration {
+    type EntryType = Value
+    val Debit = Value("DEBIT")
+    val Credit = Value("CREDIT")
+  }
+
+}

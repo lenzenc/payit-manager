@@ -1,12 +1,18 @@
 package com.payit.manager.models
 
 import com.mongodb.casbah.Imports._
+import com.payit.components.core.models.Timestamps
 import com.payit.components.mongodb.models.MongoModel
+import org.joda.time.DateTime
 
-case class Payment(
+case class  Payment(
                     fundingAccount: FundingAccount,
                     beneficiaryAccount: BankAccount,
                     externalRef: ObjectId = new ObjectId,
                     amount: BigDecimal,
+                    timestamps: Timestamps = Timestamps(),
                     id: ObjectId = new ObjectId)
 extends MongoModel[Payment]
+{
+  def withUpdatedAt(updatedAt: DateTime): Payment = copy(timestamps = timestamps.updated(updatedAt))
+}
