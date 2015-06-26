@@ -30,8 +30,8 @@ class PaymentMapper(
     Payment(
       amount = dbo.as[BigDecimal](Amount),
       externalRef = dbo.as[ObjectId](ExternalRef),
-      fundingAccount = fundingAccountDAO.findById(dbo.as[ObjectId](FundingAccountId).toString).get,
-      beneficiaryAccount = bankAccountDAO.findById(dbo.as[ObjectId](BeneficiaryAccountId).toString).get,
+      fundingAccount = fundingAccountDAO.findById(dbo.as[ObjectId](FundingAccountId)).get,
+      beneficiaryAccount = bankAccountDAO.findById(dbo.as[ObjectId](BeneficiaryAccountId)).get,
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
