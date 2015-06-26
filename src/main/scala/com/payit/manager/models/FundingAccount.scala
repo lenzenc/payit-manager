@@ -2,7 +2,7 @@ package com.payit.manager.models
 
 import com.payit.components.core.models.Timestamps
 import com.payit.components.mongodb.models.MongoModel
-import com.payit.manager.FundingMethod.FundingMethod
+import FundingMethod.FundingMethod
 import com.payit.manager.models.Country.Country
 import com.payit.manager.models.Currency.Currency
 import com.mongodb.casbah.Imports._

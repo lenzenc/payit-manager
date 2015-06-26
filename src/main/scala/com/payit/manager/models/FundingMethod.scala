@@ -1,4 +1,4 @@
-package com.payit.manager
+package com.payit.manager.models
 
 object FundingMethod extends Enumeration {
   type FundingMethod = Value

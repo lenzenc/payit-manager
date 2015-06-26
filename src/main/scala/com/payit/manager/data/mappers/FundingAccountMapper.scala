@@ -3,7 +3,8 @@ package com.payit.manager.data.mappers
 import com.mongodb.DBObject
 import com.mongodb.casbah.Imports._
 import com.payit.components.mongodb.dao.MongoObjectMapper
-import com.payit.manager.FundingMethod.FundingMethod
+import com.payit.manager.models.{FundingMethod, FundingAccount}
+import FundingMethod.FundingMethod
 import com.payit.manager.models.Country.Country
 import com.payit.manager.models.Currency.Currency
 

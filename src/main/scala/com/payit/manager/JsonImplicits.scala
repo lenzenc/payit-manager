@@ -1,6 +1,6 @@
 package com.payit.manager
 
-import com.payit.manager.models.{BankAccount, Partner, Country, Currency}
+import com.payit.manager.models._
 import com.payit.manager.services.dtos.{NewFundingAccount, AddedFundingAccount, PartnerDetail}
 import spray.httpx.SprayJsonSupport
 import spray.json._
