@@ -4,7 +4,7 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.DBObject
 import com.mongodb.casbah.commons.MongoDBObject
 import com.payit.components.mongodb.dao.MongoObjectMapper
-import com.payit.manager.models.{BankAcctType, BankAccount}
+import com.payit.manager.models.BankAccount
 import com.payit.manager.models.Country.Country
 import com.payit.manager.models.Currency.Currency
 
@@ -34,7 +34,7 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       name = dbo.as[String](Name),
       country = dbo.as[Country](Name),
       currency = dbo.as[Currency](Name),
-      accountType = BankAcctType.withName(dbo.as[String](AccountType)),
+      accountType = BankAccount.AcctType.withName(dbo.as[String](AccountType)),
       accountNumber = dbo.as[String](AccountNumber),
       routingNumber = dbo.as[String](RoutingNumber),
       externalRef = dbo.as[ObjectId](ExternalRef),

@@ -5,12 +5,12 @@ import com.payit.components.mongodb.migrations.MongoMigration
 import com.payit.manager.data.MongoCollections
 import com.payit.manager.data.daos.PartnerDAO
 import com.payit.manager.data.mappers.PartnerMapper
-import com.payit.manager.models.{PartnerExternalRef, Partner}
+import com.payit.manager.models.Partner
 
 class Migrate_1434591387634_AddInitialPartners extends MongoMigration {
 
-  val partnerA = Partner("Partner A", PartnerExternalRef.PartnerA)
-  val partnerB = Partner("Partner B", PartnerExternalRef.PartnerB)
+  val partnerA = Partner("Partner A", Partner.ExternalRef.PartnerA)
+  val partnerB = Partner("Partner B", Partner.ExternalRef.PartnerB)
 
   def up(db: MongoDB) = {
 

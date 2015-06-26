@@ -1,6 +1,6 @@
 package com.payit.manager
 
-import com.payit.manager.models.{PartnerExternalRef, Country, Currency}
+import com.payit.manager.models.{BankAccount, Partner, Country, Currency}
 import com.payit.manager.services.dtos.{NewFundingAccount, AddedFundingAccount, PartnerDetail}
 import spray.httpx.SprayJsonSupport
 import spray.json._
@@ -9,7 +9,8 @@ trait JsonImplicits extends DefaultJsonProtocol with SprayJsonSupport {
 
   implicit val currencyJsonFormat = jsonEnum(Currency)
   implicit val countryJsonFormat = jsonEnum(Country)
-  implicit val partnerExternalRefJsonFormat = jsonEnum(PartnerExternalRef)
+  implicit val partnerExternalRefJsonFormat = jsonEnum(Partner.ExternalRef)
+  implicit val bankAccountTypeJsonFormat = jsonEnum(BankAccount.AcctType)
 
   implicit val partnerDetailJsonFormat = jsonFormat2(PartnerDetail)
   implicit val addedFundingAccountJsonFormat = jsonFormat2(AddedFundingAccount)

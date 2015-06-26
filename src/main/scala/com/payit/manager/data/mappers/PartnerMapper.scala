@@ -3,7 +3,7 @@ package com.payit.manager.data.mappers
 import com.mongodb.DBObject
 import com.mongodb.casbah.Imports._
 import com.payit.components.mongodb.dao.MongoObjectMapper
-import com.payit.manager.models.{PartnerExternalRef, Partner}
+import com.payit.manager.models.Partner
 
 class PartnerMapper extends MongoObjectMapper[Partner] {
 
@@ -20,7 +20,7 @@ class PartnerMapper extends MongoObjectMapper[Partner] {
   def fromDBObject(dbo: DBObject): Partner = {
     Partner(
       name = dbo.as[String](Name),
-      externalRef = PartnerExternalRef.withName(dbo.as[String](ExternalRef)),
+      externalRef = Partner.ExternalRef.withName(dbo.as[String](ExternalRef)),
       id = dbo.as[ObjectId](Id)
     )
   }
