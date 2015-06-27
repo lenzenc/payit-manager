@@ -15,6 +15,7 @@ case class BankAccount(
                         accountType: AcctType,
                         accountNumber: String,
                         routingNumber: String,
+                        accountId: String,
                         externalRef: ObjectId = new ObjectId,
                         timestamps: Timestamps = Timestamps(),
                         id: ObjectId = new ObjectId)

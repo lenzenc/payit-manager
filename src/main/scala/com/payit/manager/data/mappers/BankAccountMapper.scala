@@ -10,10 +10,6 @@ import com.payit.manager.models.Currency.Currency
 
 class BankAccountMapper extends MongoObjectMapper[BankAccount] {
 
-  val AccountType = "accountType"
-  val AccountNumber = "accountNumber"
-  val RoutingNumber = "routingNumber"
-
   import BankAccountMapper._
 
   def asDBObject(bankAccount: BankAccount): DBObject = {
@@ -26,7 +22,8 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       Currency -> bankAccount.currency,
       AccountType -> bankAccount.accountType.toString(),
       AccountNumber -> bankAccount.accountNumber,
-      RoutingNumber -> bankAccount.routingNumber
+      RoutingNumber -> bankAccount.routingNumber,
+      AccountId -> bankAccount.accountId
     )
   }
 
@@ -38,6 +35,7 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       accountType = BankAccount.AcctType.withName(dbo.as[String](AccountType)),
       accountNumber = dbo.as[String](AccountNumber),
       routingNumber = dbo.as[String](RoutingNumber),
+      accountId = dbo.as[String](AccountId),
       externalRef = dbo.as[ObjectId](ExternalRef),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
@@ -46,4 +44,11 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
 
 }
 
-object BankAccountMapper extends CommonFields
+object BankAccountMapper extends CommonFields {
+
+  val AccountType = "accountType"
+  val AccountNumber = "accountNumber"
+  val RoutingNumber = "routingNumber"
+  val AccountId = "accountId"
+
+}
