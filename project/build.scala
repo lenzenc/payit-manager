@@ -1,10 +1,15 @@
 import sbt._
-import Keys._
+import sbt.Keys._
 import spray.revolver.RevolverPlugin._
 
 object PaymentManager extends Build {
 
-  lazy val time = inputKey[Unit]("Prints a current timestamp")
+  lazy val time = inputKey[Unit]("Prints a Migration Script Name with a Current Timestamp")
+  val testAll = TaskKey[Unit]("test-all", "Runs All Unit & Integration Tests")
+
+  val testAllTask = testAll := ()
+
+//  testAll <<= testAll.dependsOn(test in Test)
 
   lazy val _scalacOptions = Seq("-deprecation", "-unchecked", "-feature")
 
@@ -46,8 +51,12 @@ object PaymentManager extends Build {
       ),
       time := {
         println(s"Migrate_${System.currentTimeMillis()}_")
-      }
-    ) ++ Revolver.settings ++ Defaults.itSettings
+      },
+      testAllTask
+    ) ++ Revolver.settings ++ Defaults.itSettings ++ Seq(
+      testAll <<= testAll.dependsOn(test in IntegrationTest),
+      testAll <<= testAll.dependsOn(test in Test)
+    )
   )
 
 }
