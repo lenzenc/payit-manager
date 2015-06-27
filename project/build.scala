@@ -22,10 +22,13 @@ object PaymentManager extends Build {
     scalacOptions ++= _scalacOptions,
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature"),
     scalacOptions in Test ++= Seq("-Yrangepos"),
-    parallelExecution in Test := false
+    parallelExecution in IntegrationTest := false
   )
 
   lazy val paymentManager = Project(id = "payit-manager", base = file("."),
+    configurations = Seq(
+      IntegrationTest
+    ),
     settings = commonSettings ++ Seq(
       name := "payit-manager",
       libraryDependencies ++= Seq(
@@ -44,7 +47,7 @@ object PaymentManager extends Build {
       time := {
         println(s"Migrate_${System.currentTimeMillis()}_")
       }
-    ) ++ Revolver.settings
+    ) ++ Revolver.settings ++ Defaults.itSettings
   )
 
 }
