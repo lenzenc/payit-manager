@@ -18,7 +18,8 @@ class PaymentMapper() extends MongoObjectMapper[Payment]
       PaymentId -> payment.paymentId,
       Amount -> payment.amount,
       FundingAccountId -> payment.fundingAccountId,
-      BeneficiaryAccountId -> payment.beneficiaryAccountId
+      BeneficiaryAccountId -> payment.beneficiaryAccountId,
+      ApplicationId -> payment.applicationId
     )
   }
 
@@ -28,6 +29,7 @@ class PaymentMapper() extends MongoObjectMapper[Payment]
       fundingAccountId = dbo.as[ObjectId](FundingAccountId),
       beneficiaryAccountId = dbo.as[ObjectId](BeneficiaryAccountId),
       paymentId = dbo.as[String](PaymentId),
+      applicationId = dbo.as[ObjectId](ApplicationId),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )

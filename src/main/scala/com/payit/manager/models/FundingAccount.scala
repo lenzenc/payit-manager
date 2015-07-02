@@ -13,6 +13,7 @@ case class FundingAccount(
                            fundingMethod: FundingMethod,
                            currency: Currency,
                            country: Country,
+                           applicationId: ObjectId,
                            journalEntries: Seq[JournalEntry] = Seq(),
                            timestamps: Timestamps = Timestamps(),
                            id: ObjectId = new ObjectId)

@@ -9,8 +9,8 @@ class Migrate_1434587082105_AddApplicationIndexes extends MongoMigration {
 
   def up(db: MongoDB) = {
     val collection = db(MongoCollections.Applications.toString)
-    addUniqueIndex(collection, ApplicationMapper.Name, "UNIQ_NAME_IDX")
-    addUniqueIndex(collection, ApplicationMapper.ApiKey, "UNIQ_APIKEY_IDX")
+    addUniqueIndex(collection, "UNIQ_NAME_IDX", ApplicationMapper.Name)
+    addUniqueIndex(collection, "UNIQ_APIKEY_IDX", ApplicationMapper.ApiKey)
   }
 
   def down(db: MongoDB) = {

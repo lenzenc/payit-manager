@@ -10,6 +10,7 @@ case class  Payment(
                     beneficiaryAccountId: ObjectId,
                     amount: BigDecimal,
                     paymentId: String,
+                    applicationId: ObjectId,
                     timestamps: Timestamps = Timestamps(),
                     id: ObjectId = new ObjectId)
 extends MongoModel[Payment]

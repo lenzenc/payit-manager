@@ -9,9 +9,11 @@ trait MongoMigration {
 
   def down(db: MongoDB)
 
-  def addUniqueIndex(collection: MongoCollection, field: String, name: String) = {
+  def addUniqueIndex(collection: MongoCollection, name: String, fields: String*) = {
+    var map = MongoDBObject()
+    fields.foreach { i => map.put(i, 1) }
     collection.createIndex(
-      MongoDBObject(field -> 1),
+      map,
       MongoDBObject("unique" -> true, "name" -> name)
     )
   }

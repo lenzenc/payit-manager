@@ -20,7 +20,8 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
       Name -> fundingAccount.name,
       FundingMethod -> fundingAccount.fundingMethod.toString,
       Currency -> fundingAccount.currency.toString,
-      Country -> fundingAccount.country.toString
+      Country -> fundingAccount.country.toString,
+      ApplicationId -> fundingAccount.applicationId
     )
   }
 
@@ -31,6 +32,7 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
       currency = dbo.as[Currency](Currency),
       country = dbo.as[Country](Country),
       journalEntries = Seq(),
+      applicationId = dbo.as[ObjectId](ApplicationId),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )

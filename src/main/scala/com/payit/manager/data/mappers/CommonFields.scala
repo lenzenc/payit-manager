@@ -6,5 +6,6 @@ trait CommonFields {
   val Name = "name"
   val Currency = "currency"
   val Country = "country"
+  val ApplicationId = "applicationId"
 
 }

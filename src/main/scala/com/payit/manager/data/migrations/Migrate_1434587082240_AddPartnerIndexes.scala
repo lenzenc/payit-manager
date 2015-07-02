@@ -9,7 +9,7 @@ class Migrate_1434587082240_AddPartnerIndexes extends MongoMigration {
 
   def up(db: MongoDB) = {
     val collection = db(MongoCollections.Partners.toString)
-    addUniqueIndex(collection, PartnerMapper.Name, "UNIQ_NAME_IDX")
+    addUniqueIndex(collection, "UNIQ_NAME_IDX", PartnerMapper.Name)
   }
 
   def down(db: MongoDB) = {

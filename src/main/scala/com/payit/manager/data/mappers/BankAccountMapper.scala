@@ -22,7 +22,8 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       AccountType -> bankAccount.accountType.toString(),
       AccountNumber -> bankAccount.accountNumber,
       RoutingNumber -> bankAccount.routingNumber,
-      AccountId -> bankAccount.accountId
+      AccountId -> bankAccount.accountId,
+      ApplicationId -> bankAccount.applicationId
     )
   }
 
@@ -35,6 +36,7 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       accountNumber = dbo.as[String](AccountNumber),
       routingNumber = dbo.as[String](RoutingNumber),
       accountId = dbo.as[String](AccountId),
+      applicationId = dbo.as[ObjectId](ApplicationId),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
