@@ -5,8 +5,9 @@ import com.mongodb.casbah.Imports._
 import com.payit.components.core.Configuration
 import com.payit.components.mongodb.migrations.{ResetApplyMigrations, MongoMigrator}
 import com.payit.manager.data.daos.{FundingAccountDAO, PartnerDAO}
-import com.payit.manager.services.dtos.NewFundingAccount
-import com.payit.manager.services.{AddFundingAccountService, GetPartnerDetailsService}
+import com.payit.manager.services.GetPartnerDetailsService
+import com.payit.manager.services.funding.AddFundingAccountService
+import com.payit.manager.services.funding.dtos.NewFundingAccount
 import spray.routing.SimpleRoutingApp
 
 object Server extends App with SimpleRoutingApp with JsonImplicits {
