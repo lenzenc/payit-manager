@@ -6,8 +6,8 @@ import com.payit.components.mongodb.models.MongoModel
 import org.joda.time.DateTime
 
 case class  Payment(
-                    fundingAccount: FundingAccount,
-                    beneficiaryAccount: BankAccount,
+                    fundingAccountId: ObjectId,
+                    beneficiaryAccountId: ObjectId,
                     externalRef: ObjectId = new ObjectId,
                     amount: BigDecimal,
                     timestamps: Timestamps = Timestamps(),

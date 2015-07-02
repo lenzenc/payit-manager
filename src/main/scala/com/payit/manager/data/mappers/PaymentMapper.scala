@@ -4,13 +4,9 @@ import com.mongodb.casbah.Imports._
 import com.mongodb.DBObject
 import com.mongodb.casbah.commons.MongoDBObject
 import com.payit.components.mongodb.dao.MongoObjectMapper
-import com.payit.manager.data.daos.{BankAccountDAO, FundingAccountDAO}
 import com.payit.manager.models.Payment
 
-class PaymentMapper(
-                     fundingAccountDAO: FundingAccountDAO,
-                     bankAccountDAO: BankAccountDAO)
-  extends MongoObjectMapper[Payment]
+class PaymentMapper() extends MongoObjectMapper[Payment]
 {
 
   import PaymentMapper._
@@ -21,8 +17,8 @@ class PaymentMapper(
       Timestamps -> timestamps(payment),
       ExternalRef -> payment.externalRef,
       Amount -> payment.amount,
-      FundingAccountId -> payment.fundingAccount.id,
-      BeneficiaryAccountId -> payment.beneficiaryAccount.id
+      FundingAccountId -> payment.fundingAccountId,
+      BeneficiaryAccountId -> payment.beneficiaryAccountId
     )
   }
 
@@ -30,8 +26,8 @@ class PaymentMapper(
     Payment(
       amount = dbo.as[BigDecimal](Amount),
       externalRef = dbo.as[ObjectId](ExternalRef),
-      fundingAccount = fundingAccountDAO.findById(dbo.as[ObjectId](FundingAccountId)).get,
-      beneficiaryAccount = bankAccountDAO.findById(dbo.as[ObjectId](BeneficiaryAccountId)).get,
+      fundingAccountId = dbo.as[ObjectId](FundingAccountId),
+      beneficiaryAccountId = dbo.as[ObjectId](BeneficiaryAccountId),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
