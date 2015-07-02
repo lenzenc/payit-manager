@@ -79,7 +79,7 @@ class CrudDAOSpec extends Specification with AroundEach { spec =>
     }
   }
 
-  "findById" >> {
+  ".findById" >> {
     "when model exists for given id" >> {
       "it should return expected model" in new ExistingModelScope {
         findById(existingModel.id) must beSome(existingModel)
@@ -92,7 +92,7 @@ class CrudDAOSpec extends Specification with AroundEach { spec =>
     }
   }
 
-  "insert" >> {
+  ".insert" >> {
     "when id is NULL" >> {
       "it should result in an error" in new SpecCrudDAOScope {
         insert(SpecModel("Testing", Timestamps(), null)) must throwA[RuntimeException](message = "because id is null")
@@ -113,7 +113,7 @@ class CrudDAOSpec extends Specification with AroundEach { spec =>
     }
   }
 
-  "update" >> {
+  ".update" >> {
     "when successful" >> {
       "it should have updated the updatedAt date time" in new UpdatedModelScope {
         updatedModel.timestamps.updatedAt.getMillis must be_>(updatedModel.timestamps.createdAt.getMillis)
@@ -132,7 +132,7 @@ class CrudDAOSpec extends Specification with AroundEach { spec =>
     }
   }
 
-  "delete" >> {
+  ".delete" >> {
     "when a record exists for a given id" >> {
       "it should remove that record" in new DeletedModelScope {
         modelCollection.findOneByID(existingModel.id) must beNone
@@ -141,6 +141,19 @@ class CrudDAOSpec extends Specification with AroundEach { spec =>
     "when a record does not exist for a given id" >> {
       "it should result in a call that does not produce an error" in new SpecCrudDAOScope {
         delete(new ObjectId)
+      }
+    }
+  }
+
+  ".find" >> {
+    "when a record exists" >> {
+      "it should return expected model" in new ExistingModelScope {
+        find(MongoDBObject("_id" -> existingModel.id)) must beSome.like { case model => model.id must_== existingModel.id}
+      }
+    }
+    "when no record exists" >> {
+      "it should return None" in new ExistingModelScope {
+        find(MongoDBObject("_id" -> new ObjectId)) must beNone
       }
     }
   }

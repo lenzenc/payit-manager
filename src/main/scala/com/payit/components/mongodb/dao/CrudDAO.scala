@@ -32,4 +32,6 @@ trait CrudDAO[M <: MongoModel[M]] extends MongoDAO[M] {
 
   def delete(id: ObjectId) = collection.remove(MongoDBObject("_id" -> id))
 
+  def find(dbo: MongoDBObject): Option[M] = Some(mapper.fromDBObject(collection.findOne(dbo).getOrElse(return None)))
+
 }
