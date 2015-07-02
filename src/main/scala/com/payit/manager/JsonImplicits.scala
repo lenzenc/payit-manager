@@ -10,7 +10,6 @@ trait JsonImplicits extends DefaultJsonProtocol with SprayJsonSupport {
 
   implicit val currencyJsonFormat = jsonEnum(Currency)
   implicit val countryJsonFormat = jsonEnum(Country)
-  implicit val partnerExternalRefJsonFormat = jsonEnum(Partner.ExternalRef)
   implicit val bankAccountTypeJsonFormat = jsonEnum(BankAccount.AcctType)
 
   implicit val partnerDetailJsonFormat = jsonFormat2(PartnerDetails)

@@ -16,7 +16,6 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
     MongoDBObject(
       Id -> bankAccount.id,
       Timestamps -> timestamps(bankAccount),
-      ExternalRef -> bankAccount.externalRef,
       Name -> bankAccount.name,
       Country -> bankAccount.country,
       Currency -> bankAccount.currency,
@@ -36,7 +35,6 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       accountNumber = dbo.as[String](AccountNumber),
       routingNumber = dbo.as[String](RoutingNumber),
       accountId = dbo.as[String](AccountId),
-      externalRef = dbo.as[ObjectId](ExternalRef),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )

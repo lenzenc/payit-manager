@@ -13,15 +13,13 @@ class PartnerMapper extends MongoObjectMapper[Partner] {
     MongoDBObject(
       Id -> partner.id,
       Timestamps -> timestamps(partner),
-      Name -> partner.name,
-      ExternalRef -> partner.externalRef.toString
+      Name -> partner.name
     )
   }
 
   def fromDBObject(dbo: DBObject): Partner = {
     Partner(
       name = dbo.as[String](Name),
-      externalRef = Partner.ExternalRef.withName(dbo.as[String](ExternalRef)),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )

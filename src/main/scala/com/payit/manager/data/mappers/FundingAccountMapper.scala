@@ -18,7 +18,6 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
       Id -> fundingAccount.id,
       Timestamps -> timestamps(fundingAccount),
       Name -> fundingAccount.name,
-      ExternalRef -> fundingAccount.externalRef,
       FundingMethod -> fundingAccount.fundingMethod.toString,
       Currency -> fundingAccount.currency.toString,
       Country -> fundingAccount.country.toString
@@ -28,7 +27,6 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
   def fromDBObject(dbo: DBObject): FundingAccount = {
     FundingAccount(
       name = dbo.as[String](Name),
-      externalRef = dbo.as[ObjectId](ExternalRef),
       fundingMethod = dbo.as[FundingMethod](FundingMethod),
       currency = dbo.as[Currency](Currency),
       country = dbo.as[Country](Country),

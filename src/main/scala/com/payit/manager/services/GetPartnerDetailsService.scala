@@ -7,11 +7,11 @@ import com.mongodb.casbah.Imports.ObjectId
 class GetPartnerDetailsService(partnerDAO: PartnerDAO) {
 
   def list(): Seq[PartnerDetails] = partnerDAO.findAll().map { partner =>
-    new PartnerDetails(partner.name, partner.externalRef.toString)
+    new PartnerDetails(partner.id.toString, partner.name)
   }
 
   def get(id: String): Option[PartnerDetails] = partnerDAO.findById(new ObjectId(id)).map { partner =>
-    new PartnerDetails(partner.name, partner.externalRef.toString)
+    new PartnerDetails(partner.id.toString, partner.name)
   }
 
 }

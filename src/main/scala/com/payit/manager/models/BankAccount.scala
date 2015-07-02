@@ -16,7 +16,6 @@ case class BankAccount(
                         accountNumber: String,
                         routingNumber: String,
                         accountId: String,
-                        externalRef: ObjectId = new ObjectId,
                         timestamps: Timestamps = Timestamps(),
                         id: ObjectId = new ObjectId)
 extends MongoModel[BankAccount]

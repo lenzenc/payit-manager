@@ -24,6 +24,9 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
   val getPartnerDetailsService = new GetPartnerDetailsService(new PartnerDAO())
   val addFundingAccountService = new AddFundingAccountService(new FundingAccountDAO())
 
+  println(new ObjectId)
+  println(new ObjectId)
+
   implicit val system = ActorSystem("payit-manager")
 
   startServer(interface = "localhost", port = 9000) {

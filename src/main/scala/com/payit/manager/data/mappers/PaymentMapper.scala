@@ -15,7 +15,7 @@ class PaymentMapper() extends MongoObjectMapper[Payment]
     MongoDBObject(
       Id -> payment.id,
       Timestamps -> timestamps(payment),
-      ExternalRef -> payment.externalRef,
+      PaymentId -> payment.paymentId,
       Amount -> payment.amount,
       FundingAccountId -> payment.fundingAccountId,
       BeneficiaryAccountId -> payment.beneficiaryAccountId
@@ -25,9 +25,9 @@ class PaymentMapper() extends MongoObjectMapper[Payment]
   def fromDBObject(dbo: DBObject): Payment = {
     Payment(
       amount = dbo.as[BigDecimal](Amount),
-      externalRef = dbo.as[ObjectId](ExternalRef),
       fundingAccountId = dbo.as[ObjectId](FundingAccountId),
       beneficiaryAccountId = dbo.as[ObjectId](BeneficiaryAccountId),
+      paymentId = dbo.as[String](PaymentId),
       timestamps = timestamps(dbo),
       id = dbo.as[ObjectId](Id)
     )
@@ -40,5 +40,6 @@ object PaymentMapper extends CommonFields {
   val Amount = "amount"
   val FundingAccountId = "fundingAccountId"
   val BeneficiaryAccountId = "beneficiaryAccountId"
+  val PaymentId = "paymentId"
 
 }

@@ -14,7 +14,6 @@ case class FundingAccount(
                            currency: Currency,
                            country: Country,
                            journalEntries: Seq[JournalEntry] = Seq(),
-                           externalRef: ObjectId = new ObjectId,
                            timestamps: Timestamps = Timestamps(),
                            id: ObjectId = new ObjectId)
 extends MongoModel[FundingAccount]

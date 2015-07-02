@@ -8,8 +8,8 @@ import org.joda.time.DateTime
 case class  Payment(
                     fundingAccountId: ObjectId,
                     beneficiaryAccountId: ObjectId,
-                    externalRef: ObjectId = new ObjectId,
                     amount: BigDecimal,
+                    paymentId: String,
                     timestamps: Timestamps = Timestamps(),
                     id: ObjectId = new ObjectId)
 extends MongoModel[Payment]

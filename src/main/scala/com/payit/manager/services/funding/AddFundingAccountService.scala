@@ -13,7 +13,7 @@ class AddFundingAccountService(fundingAccountDAO: FundingAccountDAO) {
       newFundingAccount.currency,
       newFundingAccount.country
     ))
-    FundingAccountDetails(fundingAccount.externalRef.toString, fundingAccount.name
+    FundingAccountDetails(fundingAccount.id.toString, fundingAccount.name
     )
   }
 

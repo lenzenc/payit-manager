@@ -1,3 +1,3 @@
 package com.payit.manager.services.dtos
 
-case class PartnerDetails(name: String, reference: String)
+case class PartnerDetails(id: String, name: String)
