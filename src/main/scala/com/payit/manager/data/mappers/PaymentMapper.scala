@@ -16,7 +16,7 @@ class PaymentMapper() extends MongoObjectMapper[Payment]
       Id -> payment.id,
       Timestamps -> timestamps(payment),
       PaymentId -> payment.paymentId,
-      Amount -> payment.amount,
+      Amount -> payment.amount.toString,
       FundingAccountId -> payment.fundingAccountId,
       BeneficiaryAccountId -> payment.beneficiaryAccountId,
       ApplicationId -> payment.applicationId
@@ -25,7 +25,7 @@ class PaymentMapper() extends MongoObjectMapper[Payment]
 
   def fromDBObject(dbo: DBObject): Payment = {
     Payment(
-      amount = dbo.as[BigDecimal](Amount),
+      amount = BigDecimal(dbo.as[String](Amount)),
       fundingAccountId = dbo.as[ObjectId](FundingAccountId),
       beneficiaryAccountId = dbo.as[ObjectId](BeneficiaryAccountId),
       paymentId = dbo.as[String](PaymentId),

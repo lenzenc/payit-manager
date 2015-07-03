@@ -3,7 +3,7 @@ package com.payit.manager.services.payments
 import com.payit.manager.models.{Application, Payment}
 import com.payit.manager.services.payments.dtos.{PaymentDetails, PaymentRequest}
 
-class CreatePaymentService {
+class CreatePaymentService() {
 
   def create(app: Application, paymentRequest: PaymentRequest): PaymentDetails = {
 
