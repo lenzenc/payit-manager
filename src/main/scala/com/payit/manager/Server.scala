@@ -61,80 +61,8 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
             }
           }
         }
-      }      
+      }
     }
   }
 
 }
-
-//trait RestAuthenticator[U] extends ContextAuthenticator[U] {
-//
-//  type ParamExtractor = RequestContext => Map[String, String]
-//
-//  val keys: Seq[String]
-//
-//  val authenticator: Map[String, String] => Future[Option[U]]
-//
-//  val extractor: ParamExtractor = (ctx: RequestContext) => ctx.request.uri.query.toMap
-//
-//  def getChallengeHeaders(httpRequest: HttpRequest): List[HttpHeader] = Nil
-//
-//  implicit def executionContext: ExecutionContext
-//
-//  def apply(ctx: RequestContext): Future[Authentication[U]] = {
-//    val queryParams = extractor(ctx)
-//    authenticator(queryParams) map {
-//      case Some(entity) => Right(entity)
-//      case None => {
-//        val cause = if (queryParams.isEmpty) CredentialsMissing else CredentialsRejected
-//        Left(AuthenticationFailedRejection(cause, getChallengeHeaders(ctx.request)))
-//      }
-//    }
-//  }
-//
-//}
-//
-//object AccessTokenHandler {
-//
-//  import scala.concurrent.ExecutionContext.Implicits.global
-//
-//  val defaultKeys = Seq("access_token")
-//  val defaultAuthenticator = (params: Map[String, String]) => Future {
-//    val accessToken = params.get(defaultKeys(0))
-//    accessToken flatMap { token =>
-//      None
-//    }
-//  }
-//
-//  case class AccessTokenAuthenticator(
-//                                       val keys: Seq[String] = defaultKeys,
-//                                       val authenticator: Map[String, String] => Future[Option[Application]] = defaultAuthenticator)
-//  extends RestAuthenticator[Application]
-//  {
-//    import scala.concurrent.ExecutionContext.Implicits.global
-//
-//    def apply(): Directive1[Application] = authenticate(this)
-//  }
-//
-//}
-
-//object AccessTokenHandler {
-//
-//  case class AccessTokenAuthenticator(val keys: List[String] = defaultKeys,
-//                                      val authenticator: Map[String, String] => Future[Option[User]] = defaultAuthenticator) extends RestAuthenticator[User] {
-//    def apply(): Directive1[User] = authenticate(this)
-//  }
-//
-//  val defaultKeys = List("access_token")
-//  val defaultAuthenticator = (params: Map[String, String]) => Future {
-//    val mayBeUser = params.get(defaultKeys(0))
-//    mayBeUser flatMap { token =>
-//      /*
-//       * get user form database , replace None with proper method once database service is ready.
-//       * getUserFromAccessToken(token)
-//       */
-//      None
-//    }
-//  }
-//
-//}
