@@ -17,8 +17,8 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
       Id -> bankAccount.id,
       Timestamps -> timestamps(bankAccount),
       Name -> bankAccount.name,
-      Country -> bankAccount.country,
-      Currency -> bankAccount.currency,
+      Country -> bankAccount.country.toString,
+      Currency -> bankAccount.currency.toString,
       AccountType -> bankAccount.accountType.toString(),
       AccountNumber -> bankAccount.accountNumber,
       RoutingNumber -> bankAccount.routingNumber,
@@ -30,8 +30,8 @@ class BankAccountMapper extends MongoObjectMapper[BankAccount] {
   def fromDBObject(dbo: DBObject): BankAccount = {
     BankAccount(
       name = dbo.as[String](Name),
-      country = dbo.as[Country](Name),
-      currency = dbo.as[Currency](Name),
+      country = com.payit.manager.models.Country.withName(dbo.as[String](Country)),
+      currency = com.payit.manager.models.Currency.withName(dbo.as[String](Currency)),
       accountType = BankAccount.AcctType.withName(dbo.as[String](AccountType)),
       accountNumber = dbo.as[String](AccountNumber),
       routingNumber = dbo.as[String](RoutingNumber),

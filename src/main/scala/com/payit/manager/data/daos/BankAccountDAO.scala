@@ -1,5 +1,6 @@
 package com.payit.manager.data.daos
 
+import com.mongodb.casbah.Imports._
 import com.mongodb.casbah.{MongoCollection, MongoDB}
 import com.payit.components.mongodb.dao.CrudDAO
 import com.payit.manager.data.MongoCollections
@@ -10,5 +11,10 @@ class BankAccountDAO(implicit val db: MongoDB) extends CrudDAO[BankAccount] {
 
   protected lazy val collection: MongoCollection = db(MongoCollections.BankAccounts.toString)
   protected val mapper = new BankAccountMapper
+
+  def findByAccountId(applicationId: ObjectId, accountId: String): Option[BankAccount] = find(MongoDBObject(
+    BankAccountMapper.ApplicationId -> applicationId,
+    BankAccountMapper.AccountId -> accountId
+  ))
 
 }
