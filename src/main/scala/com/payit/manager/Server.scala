@@ -56,7 +56,7 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
           decompressRequest() {
             entity(as[NewFundingAccount]) { account =>
               complete {
-                addFundingAccountService.add(account)
+                addFundingAccountService.add(app, account)
               }
             }
           }

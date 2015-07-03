@@ -152,7 +152,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z112"></relationship>
     </object>
     <object type="LMREQUEST" id="z112">
-        <attribute name="body" type="string">[{"data":{"json":"{\\"name\\":\\"My USD Account\\",\\"fundingMethod\\":\\"DEBIT\\",\\"currency\\":\\"USD\\",\\"country\\":\\"USA\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
+        <attribute name="body" type="string">[{"data":{"json":"{\\"name\\":\\"[\\\\\\"Account - \\\\\\",{\\\\\\"data\\\\\\":{},\\\\\\"identifier\\\\\\":\\\\\\"com.hskrasek.PawExtensions.RandomUuidValue\\\\\\"}]\\",\\"fundingMethod\\":\\"DEBIT\\",\\"currency\\":\\"USD\\",\\"country\\":\\"USA\\"}"},"identifier":"com.luckymarmot.JSONDynamicValue"}]</attribute>
         <attribute name="uuid" type="string">674548F4-3279-409C-982E-376F9FA6D999</attribute>
         <attribute name="url" type="string">http://localhost:9000/fundingaccounts</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
