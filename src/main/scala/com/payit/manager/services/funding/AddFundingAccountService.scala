@@ -7,6 +7,8 @@ import com.payit.manager.services.funding.dtos.{NewFundingAccount, FundingAccoun
 
 class AddFundingAccountService(fundingAccountDAO: FundingAccountDAO) {
 
+  // TODO: Pass Application to this method so that the correct applicationId can be added
+
   def add(newFundingAccount: NewFundingAccount): FundingAccountDetails = {
     val fundingAccount = fundingAccountDAO.insert(FundingAccount(
       newFundingAccount.name,
