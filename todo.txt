@@ -1,0 +1,1 @@
+* Updated API to return proper HTTP REST response codes

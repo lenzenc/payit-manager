@@ -1,11 +1,11 @@
 package com.payit.manager.services.payments
 
-import com.payit.manager.models.Payment
+import com.payit.manager.models.{Application, Payment}
 import com.payit.manager.services.payments.dtos.{PaymentDetails, PaymentRequest}
 
 class CreatePaymentService {
 
-  def create(paymentRequest: PaymentRequest): PaymentDetails = {
+  def create(app: Application, paymentRequest: PaymentRequest): PaymentDetails = {
 
     // Check for duplicate paymentId
     // check for current bene account and add, or create
