@@ -1,1 +1,3 @@
 * Updated API to return proper HTTP REST response codes
+* CreatePaymentRequestService should probably just use a String value to look up a FundingAccount, since a "bad" fundingId results in an ObjectId invalid exception
+* Add common mapper methods for Country & Currency

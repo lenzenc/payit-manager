@@ -5,3 +5,4 @@ case class PaymentRequest(
                            fundingId: String,
                            beneficiary: Beneficiary,
                            amount: BigDecimal)
+

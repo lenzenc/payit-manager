@@ -7,7 +7,6 @@ import com.payit.manager.models.Country.Country
 import com.payit.manager.models.Currency.Currency
 
 import com.payit.manager.models.FundingAccount
-import com.payit.manager.models.FundingMethod.FundingMethod
 
 class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
 
@@ -28,9 +27,9 @@ class FundingAccountMapper extends MongoObjectMapper[FundingAccount] {
   def fromDBObject(dbo: DBObject): FundingAccount = {
     FundingAccount(
       name = dbo.as[String](Name),
-      fundingMethod = dbo.as[FundingMethod](FundingMethod),
-      currency = dbo.as[Currency](Currency),
-      country = dbo.as[Country](Country),
+      fundingMethod = com.payit.manager.models.FundingMethod.withName(dbo.as[String](FundingMethod)),
+      country = com.payit.manager.models.Country.withName(dbo.as[String](Country)),
+      currency = com.payit.manager.models.Currency.withName(dbo.as[String](Currency)),
       journalEntries = Seq(),
       applicationId = dbo.as[ObjectId](ApplicationId),
       timestamps = timestamps(dbo),
