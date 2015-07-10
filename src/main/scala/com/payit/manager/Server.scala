@@ -16,22 +16,17 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
-object Server extends App with SimpleRoutingApp with JsonImplicits {
+object Server extends App with SimpleRoutingApp with JsonImplicits with DBMigrator with MongoDBSupport {
 
   println("Running PayIT Manager...")
+
+  lazy val config = Configuration.load
 
   val migrationCommand = args match {
     case Array(a) if a.equals("reset") => ResetApplyMigrations
     case _ => ApplyMigrations
   }
-
-  val config = Configuration.load
-  val migrator = new MongoMigrator("default", config)
-  migrator.migrate(migrationCommand, "com.payit.manager.data.migrations")
-  val client: MongoClient = MongoClient(
-    config.getString("mongo.default.host").getOrElse("localhost"),
-    config.getInt("mongo.default.port").getOrElse(27017))
-  implicit val db: MongoDB = client(config.getString("mongo.default.dbname").get)
+  migrateDB(migrationCommand)
 
   val applicationDAO = new ApplicationDAO()
   val partnerDAO = new PartnerDAO()

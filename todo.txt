@@ -6,3 +6,4 @@
 * Change or add a FundingAccount look up by String
 * Change FundingAccount to FundingSource?
 * Change Payment to Transaction?
+* Pull logic in Server into better structure of mixins etc.
