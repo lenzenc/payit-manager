@@ -3,7 +3,7 @@ package com.payit.manager
 import akka.actor.ActorSystem
 import com.mongodb.casbah.Imports._
 import com.payit.components.core.Configuration
-import com.payit.components.mongodb.migrations.{ResetApplyMigrations, MongoMigrator}
+import com.payit.components.mongodb.migrations.{ApplyMigrations, ResetApplyMigrations, MongoMigrator}
 import com.payit.manager.data.daos._
 import com.payit.manager.models.Application
 import com.payit.manager.services.GetPartnerDetailsService
@@ -20,9 +20,14 @@ object Server extends App with SimpleRoutingApp with JsonImplicits {
 
   println("Running PayIT Manager...")
 
+  val migrationCommand = args match {
+    case Array(a) if a.equals("reset") => ResetApplyMigrations
+    case _ => ApplyMigrations
+  }
+
   val config = Configuration.load
   val migrator = new MongoMigrator("default", config)
-  migrator.migrate(ResetApplyMigrations, "com.payit.manager.data.migrations")
+  migrator.migrate(migrationCommand, "com.payit.manager.data.migrations")
   val client: MongoClient = MongoClient(
     config.getString("mongo.default.host").getOrElse("localhost"),
     config.getInt("mongo.default.port").getOrElse(27017))
